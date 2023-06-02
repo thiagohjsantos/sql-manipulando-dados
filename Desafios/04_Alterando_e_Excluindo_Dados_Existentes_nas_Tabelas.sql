@@ -1,0 +1,39 @@
+--Desafio: alterando dados de um cliente
+
+UPDATE CLIENTES SET 
+	ENDERECO = 'R. Jorge Emilio 23',
+    BAIRRO = 'Santo Amaro',
+    CIDADE = 'São Paulo',
+    ESTADO = 'SP',
+    CEP = '8833223'
+WHERE CPF = '19290992743';
+
+
+--Desafio: alterando o volume de compra dos clientes
+
+UPDATE CLIENTES SET VOLUME_COMPRA = VOLUME_COMPRA * 1.2
+WHERE ESTADO = 'RJ';
+
+
+--Desafio: alterando o volume de compra dos clientes (UPDATE com FROM)
+
+UPDATE A SET A.VOLUME_COMPRA = A.VOLUME_COMPRA * 1.30
+FROM CLIENTES A
+INNER JOIN VENDEDORES B
+ON A.BAIRRO = B.BAIRRO;
+
+
+--Desafio: usando MERGE
+
+MERGE INTO CLIENTES C 
+USING VENDEDORES V
+ON C.BAIRRO = V.BAIRRO
+WHEN MATCHED THEN 
+UPDATE SET C.VOLUME_COMPRA = C.VOLUME_COMPRA * 1.30;
+
+
+--Desafio: excluindo notas
+
+DELETE TV FROM TABELA_DE_VENDAS TV
+INNER JOIN CLIENTES C ON TV.CPF = C.CPF 
+WHERE C.IDADE < 18;
